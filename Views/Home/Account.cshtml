@@ -1,0 +1,21 @@
+@model Transaction
+<h1> Welcome, @ViewBag.User.FirstName</h1>
+<p class="text-success fs-2">Current Balance: $@ViewBag.User.Balance</p>
+<p>@ViewBag.User.UserId</p>
+<div class="container">
+    <form action="/user/transaction" method="post">
+        <div class="row md-2">
+            <label class="col-sm-2 ">Deposit / Withdraw</label>
+            <div class="col-sm-10">
+                <input type="number" class=" col-md-2" asp-for="Amount">
+                <input type="hidden" asp-for="UserId" value="@ViewBag.User.UserId">
+                <input type="submit" value="Submit" class="col-md-2 btn btn-success">
+            </div>
+        </div>
+    </form>
+    <hr class="border border-dark border-2 opacity-50">
+    @foreach (var t in ViewData["Trans"] as IList<Transaction>)
+    {
+        <li>Money Transfered $@t.Amount At @t.CreatedAt</li>
+    }
+</div>
